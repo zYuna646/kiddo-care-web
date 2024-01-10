@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('petugas', function (Blueprint $table) {
             $table->id();
-            $table->string('email', 100)->nullable(false)->unique();
-            $table->string('phone', 100)->nullable(false)->unique();
-            $table->string('name', 100)->nullable(false);
-            $table->string('password', 100)->nullable(false);
-            $table->string('token', 100)->nullable()->unique();
+            $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->unsignedBigInteger('puskesmas_id')->nullable(false);
             $table->timestamps();
+
+            $table->foreign('user_id')->on('users')->references('id');
+            $table->foreign('puskesmas_id')->on('puskesmas')->references('id');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('petugas');
     }
 };

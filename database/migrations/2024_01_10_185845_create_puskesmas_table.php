@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('puskesmas', function (Blueprint $table) {
             $table->id();
-            $table->string('email', 100)->nullable(false)->unique();
-            $table->string('phone', 100)->nullable(false)->unique();
-            $table->string('name', 100)->nullable(false);
-            $table->string('password', 100)->nullable(false);
-            $table->string('token', 100)->nullable()->unique();
+            $table->string('provinsi', 100)->nullable(false);
+            $table->string('kabupaten', 100)->nullable(false);
+            $table->string('name', 100)->nullable(false)->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('puskesmas');
     }
 };
