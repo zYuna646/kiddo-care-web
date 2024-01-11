@@ -16,10 +16,18 @@ class UserSeeder extends Seeder
     {
         User::create([
             'email' => 'test@email.com',
-            'phone' => '085398298129',
+            'phone' => '08530000001',
             'username' => 'test',
             'password' => Hash::make(12345),
             'token' => 'token'
+        ]);
+
+        User::create([
+            'email' => 'admin@email.com',
+            'phone' => '085398298129',
+            'username' => 'admin',
+            'password' => Hash::make(1234567),
+            'token' => 'token1234'
         ]);
     }
 }
