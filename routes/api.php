@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('/users', [UserController::class, 'register']);
+Route::post('/users/check', [UserController::class, 'check']);
 Route::post('/users/login', [UserController::class, 'login']);
 
 Route::middleware(APIAuth::class)->group(function () {

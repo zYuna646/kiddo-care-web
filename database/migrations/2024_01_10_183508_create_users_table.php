@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username', 100)->nullable(false);
             $table->string('password', 100)->nullable(false);
             $table->string('token', 100)->nullable()->unique();
+            $table->string('verified')->nullable()->default(false);
             $table->timestamps();
         });
     }

@@ -36,6 +36,23 @@ class UserController extends Controller
         return (new UserResource($user))->response()->setStatusCode(201);
     }
 
+    public function check(UserRegisterRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        if (User::where('email', $data['email'])->count() == 1 || user::where('phone', $data['phone'])->count() == 1) {
+            throw new HttpResponseException(response([
+                "errors" => [
+                    "message" => "Email Atau Nomor Telepon Sudah Digunakan"
+                ]
+            ], 400));
+        } else {
+            throw new HttpResponseException(response([
+                "data" => true
+            ], 201));
+        }
+    }
+
     public function login(UserLoginRequest $request): UserResource
     {
         $data = $request->validated();
