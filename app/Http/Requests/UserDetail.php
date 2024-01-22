@@ -5,14 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UserRegisterRequest extends FormRequest
+class UserDetail extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,13 +23,7 @@ class UserRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'max:100'],
-            'ktp' => ['required', 'max:100'],
-            'kk' => ['required', 'max:100'],
-            'jenis_kelamin' => ['required', 'max:100'],
-            'password' => ['required', 'max:100'],
-            'phone' => ['required', 'max:100'],
-            'username' => ['required', 'max:100'],
+            'id' => ['required', 'max:100'],
             'role' => ['required', 'max:100'],
         ];
     }

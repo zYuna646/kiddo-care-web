@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserDetail;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\MasyarakatResource;
 use App\Http\Resources\UserResource;
+use App\Models\Masyarakat;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
@@ -14,6 +17,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
+
 
 class UserController extends Controller
 {
@@ -29,9 +34,34 @@ class UserController extends Controller
             ], 400));
         }
 
-        $user = new User($data);
+        $user = User::create([
+            'email' => $data['email'],
+            'username' => $data['username'],
+            'phone' => $data['phone'],
+            'role' => $data['role'],
+            'password' => $data['password'],
+        ]);
         $user->password = Hash::make($data['password']);
+        $user->assignRole('masyarakat');
         $user->save();
+
+        if ($data['role'] == 'masyarakat') {
+
+            $masyarakat = Masyarakat::create([
+                'jenis_kelamin' => $data['jenis_kelamin'],
+                'nik' => $data['nik'],
+                'nkk' => $data['nkk'],
+                'user_id' => $user->id,
+            ]);
+
+            $masyarakat->save();
+
+        }else
+        {
+            
+        }
+
+
 
         return (new UserResource($user))->response()->setStatusCode(201);
     }
@@ -79,6 +109,22 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return new UserResource($user);
+    }
+
+    public function detail(UserDetail $request): MasyarakatResource
+    {
+        $data = $request->validated();
+        if ($data['role'] == 'masyarakat') {
+            $masyarakat = Masyarakat::where($data['id']);
+            return new MasyarakatResource($masyarakat);
+        } else {
+            throw new HttpResponseException(response([
+                "errors" => [
+                    "message" => "Email or phone number or password is incorrect"
+                ]
+            ], 400));
+        }
+
     }
 
     public function update(UserUpdateRequest $request): UserResource
