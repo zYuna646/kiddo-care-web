@@ -17,4 +17,13 @@ class PuskesmasController extends Controller
             'puskesmas' => $puskesmas
         ], 201);
     }
+
+    public function getById(Request $request): JsonResponse
+    {
+        $puskesmas = Puskesmas::find( $request->id );
+
+        return response()->json([
+            'puskesmas' => $puskesmas
+        ], 201);
+    }
 }

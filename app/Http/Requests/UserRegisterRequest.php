@@ -31,6 +31,7 @@ class UserRegisterRequest extends FormRequest
             'phone' => ['required', 'max:100'],
             'username' => ['required', 'max:100'],
             'role' => ['required', 'max:100'],
+            'puskesmas_id' => ['required', 'max:100'],
         ];
     }
 

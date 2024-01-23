@@ -53,6 +53,7 @@ class UserController extends Controller
                 'jenis_kelamin' => $data['jk'],
                 'nik' => $data['ktp'],
                 'nkk' => $data['kk'],
+                'puskesmas_id' => $data['puskesmas_id'],
                 'user_id' => $user->id,
             ]);
 
@@ -79,7 +80,7 @@ class UserController extends Controller
         }
     }
 
-    public function login(UserLoginRequest $request): UserResource
+    public function login(UserLoginRequest $request): JsonResponse
     {
         $data = $request->validated();
 
@@ -97,8 +98,16 @@ class UserController extends Controller
 
         $user->token = Str::uuid()->toString();
         $user->save();
+        $masyarakat = $user->masyarakat;
 
-        return new UserResource($user);
+        return response()->json([
+            'data' => [
+                'user' => $user,
+                'masyarakat' => $masyarakat
+            ]
+
+        ], 200);
+
     }
 
     public function get(Request $request): UserResource
@@ -107,19 +116,12 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function detail(UserDetail $request): MasyarakatResource
+
+    public function detailUser(UserDetail $request): JsonResponse
     {
         $data = $request->validated();
-        if ($data['role'] == 'masyarakat') {
-            $masyarakat = Masyarakat::where($data['id']);
-            return new MasyarakatResource($masyarakat);
-        } else {
-            throw new HttpResponseException(response([
-                "errors" => [
-                    "message" => "Email or phone number or password is incorrect"
-                ]
-            ], 400));
-        }
+        $user = Auth::user();
+        return response()->json(['detail' => $user], 200);
 
     }
 

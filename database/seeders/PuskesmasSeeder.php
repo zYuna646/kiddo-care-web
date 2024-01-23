@@ -16,13 +16,13 @@ class PuskesmasSeeder extends Seeder
         Puskesmas::create([
             'provinsi' => 'Gorontalo',
             'kabupaten' => 'Gorontalo Utara',
-            'kecamatan' => 'tomilito',
+            'kecamatan' => 'Tomolito',
             'name' => 'Sejahtera',
         ]);
         Puskesmas::create([
             'provinsi' => 'Gorontalo',
             'kabupaten' => 'Gorontalo Utara',
-            'kecamatan' => 'kwandang',
+            'kecamatan' => 'Kwandang',
             'name' => 'Tidak Sejahtera',
         ]);
     }

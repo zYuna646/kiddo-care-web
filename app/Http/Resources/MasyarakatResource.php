@@ -20,6 +20,8 @@ class MasyarakatResource extends JsonResource
                 'jenis_kelamin' => $this->jenis_kelamin,
                 'nik' => $this->nik,
                 'nkk' => $this->nkk,
+                'user_id'=> $this->user_id,
+                'puskesmas_id' => $this->puskesmas_id
             ];
     }
 }

@@ -25,13 +25,11 @@ Route::post('/users', [UserController::class, 'register']);
 Route::post('/users/check', [UserController::class, 'check']);
 Route::post('/users/login', [UserController::class, 'login']);
 Route::get('/puskesmas', [PuskesmasController::class, 'getAll']);
+Route::post('/puskesmas/id', [PuskesmasController::class, 'getById']);
 
 Route::middleware(APIAuth::class)->group(function () {
     Route::get('/users/current', [UserController::class, 'get']);
-    Route::get('/users/detail', [UserController::class, 'detail']);
+    Route::post('/users/detail', [UserController::class, 'detailUser']);
     Route::patch('/users/current', [UserController::class, 'update']);
     Route::delete('/users/logout', [UserController::class, 'logout']);
-
-   
-
 });
