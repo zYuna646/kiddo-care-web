@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('kategori_artikels', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 100)->nullable(false);
-            $table->string('cover')->nullable(false);
-            $table->string('body')->nullable(false);
-            $table->date('uploa_date')->nullable(false);
+            $table->string('name', 100)->nullable(false);
             $table->timestamps();
         });
     }

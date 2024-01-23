@@ -17,14 +17,14 @@ class UserSeeder extends Seeder
     {
 
 
-        // $masyarakat = User::create([
-        //     'email' => 'test@email.com',
-        //     'phone' => '08530000001',
-        //     'username' => 'test',
-        //     'password' => Hash::make(1234567),
-        //     'token' => 'token',
-        //     'role' => 'masyarakat',
-        // ]);
+        User::create([
+            'email' => 'admin@email.com',
+            'phone' => '08530000001',
+            'username' => 'admin',
+            'password' => Hash::make(1234567),
+            'token' => 'token',
+            'role' => 'admin',
+        ]);
 
         // $petugas = User::create([
         //     'email' => 'admin@email.com',
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
         // $masyarakat->assignRole('masyarakat');
         // $petugas->assignRole('petugas');
 
-   
+
 
     }
 }

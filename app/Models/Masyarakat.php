@@ -25,11 +25,11 @@ class Masyarakat extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function puskesmas()
     {
-        return $this->belongsTo(Puskesmas::class);
+        return $this->belongsTo(Puskesmas::class, 'puskesmas_id');
     }
 }
