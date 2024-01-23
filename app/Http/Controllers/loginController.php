@@ -23,7 +23,9 @@ class loginController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+
         if (!$user || !Hash::check($request->password, $user->password)) {
+
             // Invalid credentials, return to login
             return view('auth.login');
         }
@@ -31,12 +33,11 @@ class loginController extends Controller
         // Check user role
         if (!($user->role == 'admin' || $user->role == 'puskesmas')) {
             // Additional checks or actions for admin/puskesmas role if needed
-            dd($user); // For debugging purposes, you may want to remove this in production
             return view('auth.login');
         }
 
         // Authenticate the user
-
+        Auth::login($user);
         // Redirect to the dashboard route
         return redirect()->route('dashboard');
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\PuskesmasController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\APIAuth;
@@ -26,6 +27,9 @@ Route::post('/users/check', [UserController::class, 'check']);
 Route::post('/users/login', [UserController::class, 'login']);
 Route::get('/puskesmas', [PuskesmasController::class, 'getAll']);
 Route::post('/puskesmas/id', [PuskesmasController::class, 'getById']);
+
+Route::get('/artikel/kategori', [ArtikelController::class, 'KategoriArtikel']);
+Route::get('/artikel', [ArtikelController::class, 'artikel']);
 
 Route::middleware(APIAuth::class)->group(function () {
     Route::get('/users/current', [UserController::class, 'get']);

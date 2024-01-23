@@ -28,6 +28,11 @@ class Masyarakat extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function Anak()
+    {
+        return $this->hasMany(Anak::class);
+    }
+
     public function puskesmas()
     {
         return $this->belongsTo(Puskesmas::class, 'puskesmas_id');
