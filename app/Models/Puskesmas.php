@@ -15,5 +15,17 @@ class Puskesmas extends Model
     public $timestamps = true;
     public $incrementing = true;
 
+    protected $fillable = [
+        'provinsi',
+        'kabupaten',
+        'kecamatan',
+        'name',
+    ];
+
+    public function masyarakat()
+    {
+        return $this->hasMany(Masyarakat::class);
+    }
+
     
 }

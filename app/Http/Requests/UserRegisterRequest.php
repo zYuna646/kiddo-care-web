@@ -26,7 +26,7 @@ class UserRegisterRequest extends FormRequest
             'email' => ['required', 'max:100'],
             'ktp' => ['required', 'max:100'],
             'kk' => ['required', 'max:100'],
-            'jenis_kelamin' => ['required', 'max:100'],
+            'jk' => ['required', 'max:100'],
             'password' => ['required', 'max:100'],
             'phone' => ['required', 'max:100'],
             'username' => ['required', 'max:100'],

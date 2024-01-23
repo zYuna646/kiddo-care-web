@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PuskesmasController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\APIAuth;
 use Illuminate\Http\Request;
@@ -23,10 +24,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('/users', [UserController::class, 'register']);
 Route::post('/users/check', [UserController::class, 'check']);
 Route::post('/users/login', [UserController::class, 'login']);
+Route::get('/puskesmas', [PuskesmasController::class, 'getAll']);
 
 Route::middleware(APIAuth::class)->group(function () {
     Route::get('/users/current', [UserController::class, 'get']);
     Route::get('/users/detail', [UserController::class, 'detail']);
     Route::patch('/users/current', [UserController::class, 'update']);
     Route::delete('/users/logout', [UserController::class, 'logout']);
+
+   
+
 });

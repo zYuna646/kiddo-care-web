@@ -9,7 +9,7 @@ class Masyarakat extends Model
 {
     use HasFactory;
 
-    protected $table = 'masyarakat';
+    protected $table = 'masyarakats';
     protected $primaryKey = 'id';
     protected $keyType = 'int';
     public $timestamps = true;
@@ -17,7 +17,19 @@ class Masyarakat extends Model
 
     protected $fillable = [
         'jenis_kelamin',
-        'nkk',
         'nik',
+        'nkk',
+        'user_id',
+        'puskesmas_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function puskesmas()
+    {
+        return $this->belongsTo(Puskesmas::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserCheck;
 use App\Http\Requests\UserDetail;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
@@ -10,6 +11,7 @@ use App\Http\Resources\MasyarakatResource;
 use App\Http\Resources\UserResource;
 use App\Models\Masyarakat;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,8 +27,9 @@ class UserController extends Controller
     public function register(UserRegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
+        info('Creating Masyarakat: ' . json_encode($data)); // Log the data
 
-        if (User::where('email', $data['email'])->count() == 1 || user::where('phone', $data['phone'])->count() == 1) {
+        if (User::where('email', $data['email'])->count() == 1 || User::where('phone', $data['phone'])->count() == 1) {
             throw new HttpResponseException(response([
                 "errors" => [
                     "message" => "Email Atau Nomor Telepon Sudah Digunakan"
@@ -39,34 +42,27 @@ class UserController extends Controller
             'username' => $data['username'],
             'phone' => $data['phone'],
             'role' => $data['role'],
-            'password' => $data['password'],
+            'password' => Hash::make($data['password']),
         ]);
-        $user->password = Hash::make($data['password']);
+
         $user->assignRole('masyarakat');
         $user->save();
 
         if ($data['role'] == 'masyarakat') {
-
             $masyarakat = Masyarakat::create([
-                'jenis_kelamin' => $data['jenis_kelamin'],
-                'nik' => $data['nik'],
-                'nkk' => $data['nkk'],
+                'jenis_kelamin' => $data['jk'],
+                'nik' => $data['ktp'],
+                'nkk' => $data['kk'],
                 'user_id' => $user->id,
             ]);
 
             $masyarakat->save();
-
-        }else
-        {
-            
         }
-
-
 
         return (new UserResource($user))->response()->setStatusCode(201);
     }
 
-    public function check(UserRegisterRequest $request): JsonResponse
+    public function check(UserCheck $request): JsonResponse
     {
         $data = $request->validated();
 

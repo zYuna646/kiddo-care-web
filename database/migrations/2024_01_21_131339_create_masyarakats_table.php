@@ -12,14 +12,11 @@ return new class extends Migration {
     {
         Schema::create('masyarakats', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_kelamin');
-            $table->string('nkk');
-            $table->string('nik');
-            $table->unsignedBigInteger('user_id')->nullable(false);
-
-
-            $table->foreign('user_id')->on('users')->references('id');
-
+            $table->string('jenis_kelamin', 100);
+            $table->string('nkk', 100);
+            $table->string('nik', 100);
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('puskesmas_id')->references('id')->on('puskesmas')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('provinsi', 100)->nullable(false);
             $table->string('kabupaten', 100)->nullable(false);
+            $table->string('kecamatan', 100)->nullable(false);
             $table->string('name', 100)->nullable(false)->unique();
             $table->timestamps();
         });
