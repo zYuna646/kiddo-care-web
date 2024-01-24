@@ -29,6 +29,7 @@ Route::get('/puskesmas', [PuskesmasController::class, 'getAll']);
 Route::post('/puskesmas/id', [PuskesmasController::class, 'getById']);
 
 Route::get('/artikel/kategori', [ArtikelController::class, 'KategoriArtikel']);
+Route::post('/artikel/kategori/id', [ArtikelController::class, 'KategoriById']);
 Route::get('/artikel', [ArtikelController::class, 'artikel']);
 
 Route::middleware(APIAuth::class)->group(function () {
@@ -36,4 +37,9 @@ Route::middleware(APIAuth::class)->group(function () {
     Route::post('/users/detail', [UserController::class, 'detailUser']);
     Route::patch('/users/current', [UserController::class, 'update']);
     Route::delete('/users/logout', [UserController::class, 'logout']);
+    Route::post('/users/id', [UserController::class, 'id']);
+    Route::get('/users/all', [UserController::class, 'all']);
+
+    Route::post('/puskesmas/masyarakat', [PuskesmasController::class, 'getMasyarakat']);
+
 });

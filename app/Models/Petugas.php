@@ -17,6 +17,11 @@ class Petugas extends Model
     public $timestamps = true;
     public $incrementing = true;
 
+    protected $fillable = [
+        'user_id',
+        'puskesmas_id',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(Petugas::class, 'user_id', 'id');

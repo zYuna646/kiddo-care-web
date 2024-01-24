@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCheck;
 use App\Http\Requests\UserDetail;
+use App\Http\Requests\UserIdRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\MasyarakatResource;
 use App\Http\Resources\UserResource;
 use App\Models\Masyarakat;
+use App\Models\Petugas;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -27,7 +29,6 @@ class UserController extends Controller
     public function register(UserRegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
-        info('Creating Masyarakat: ' . json_encode($data)); // Log the data
 
         if (User::where('email', $data['email'])->count() == 1 || User::where('phone', $data['phone'])->count() == 1) {
             throw new HttpResponseException(response([
@@ -45,7 +46,6 @@ class UserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $user->assignRole('masyarakat');
         $user->save();
 
         if ($data['role'] == 'masyarakat') {
@@ -53,11 +53,15 @@ class UserController extends Controller
                 'jenis_kelamin' => $data['jk'],
                 'nik' => $data['ktp'],
                 'nkk' => $data['kk'],
-                'puskesmas_id' => $data['puskesmas_id'],
-                'user_id' => $user->id,
+
             ]);
 
             $masyarakat->save();
+        } else {
+            $petugas = Petugas::create([
+                'puskesmas_id' => $data['puskesmas_id'],
+                'user_id' => $user->id,
+            ]);
         }
 
         return (new UserResource($user))->response()->setStatusCode(201);
@@ -80,6 +84,24 @@ class UserController extends Controller
         }
     }
 
+    public function id(UserIdRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        $user = User::find($data['user_id']);
+        return response()->json([
+            'user' => $user
+        ], 201);
+    }
+
+    public function all(): JsonResponse
+    {
+        $user = User::all();
+        return response()->json([
+            'user' => $user
+        ], 201);
+    }
+
     public function login(UserLoginRequest $request): JsonResponse
     {
         $data = $request->validated();
@@ -98,15 +120,30 @@ class UserController extends Controller
 
         $user->token = Str::uuid()->toString();
         $user->save();
-        $masyarakat = $user->masyarakat;
 
-        return response()->json([
-            'data' => [
-                'user' => $user,
-                'masyarakat' => $masyarakat
-            ]
+        if ($user->role == "masyarakat") {
+            $masyarakat = $user->masyarakat;
+            return response()->json([
+                'data' => [
+                    'user' => $user,
+                    'masyarakat' => $masyarakat
+                ]
 
-        ], 200);
+            ], 200);
+
+        } else {
+            $petugas = $user->petugas;
+            return response()->json([
+                'data' => [
+                    'user' => $user,
+                    'petugas' => $petugas
+                ]
+
+            ], 200);
+        }
+
+
+
 
     }
 

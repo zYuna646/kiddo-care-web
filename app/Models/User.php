@@ -31,6 +31,11 @@ class User extends Model implements Authenticatable
         return $this->hasOne(Masyarakat::class);
     }
 
+    public function petugas()
+    {
+        return $this->hasOne(Petugas::class);
+    }
+
     public function getAuthIdentifierName()
     {
         return 'email';
