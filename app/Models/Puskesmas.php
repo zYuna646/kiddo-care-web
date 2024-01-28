@@ -27,5 +27,10 @@ class Puskesmas extends Model
         return $this->hasMany(Masyarakat::class);
     }
 
-    
+    public function anak()
+    {
+        return $this->hasMany(Anak::class);
+    }
+
+
 }

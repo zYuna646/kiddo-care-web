@@ -17,15 +17,24 @@ class Anak extends Model
 
     protected $fillable = [
         'name',
+        'nik',
         'jenis_kelamin',
         'tanggal_lahir',
         'berat',
         'tinggi',
+        'isMenyusui',
+        'isBuku',
         'masyarakat_id',
+        'puskesmas_id',
     ];
 
     public function masyarakat()
     {
         return $this->belongsTo(Masyarakat::class, 'masyarakat_id');
+    }
+
+    public function puskesmas()
+    {
+        return $this->belongsTo(Puskesmas::class,'puskesmas_id');
     }
 }

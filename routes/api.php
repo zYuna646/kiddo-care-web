@@ -41,5 +41,7 @@ Route::middleware(APIAuth::class)->group(function () {
     Route::get('/users/all', [UserController::class, 'all']);
 
     Route::post('/puskesmas/masyarakat', [PuskesmasController::class, 'getMasyarakat']);
-
+    Route::post('/puskesmas/anak', [PuskesmasController::class, 'getPuskesmasAnak']);
+    Route::post('/masyarakat/anak', [PuskesmasController::class, 'getAnak']);
+    Route::post('/anak', [PuskesmasController::class, 'add']);
 });

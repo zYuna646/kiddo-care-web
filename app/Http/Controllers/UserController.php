@@ -53,7 +53,8 @@ class UserController extends Controller
                 'jenis_kelamin' => $data['jk'],
                 'nik' => $data['ktp'],
                 'nkk' => $data['kk'],
-
+                'puskesmas_id' => $data['puskesmas_id'],
+                'user_id' => $user->id,
             ]);
 
             $masyarakat->save();
