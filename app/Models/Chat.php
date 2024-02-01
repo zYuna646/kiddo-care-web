@@ -5,29 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Jawaban extends Model
+class Chat extends Model
 {
+
     use HasFactory;
 
-    protected $table = 'jawabans';
+    protected $table = 'chats';
     protected $primaryKey = 'id';
     protected $keyType = 'int';
     public $timestamps = true;
     public $incrementing = true;
 
     protected $fillable = [
-        'jawaban',
-        'pertanyaan_id',
-        'anak_id'
+        'isi',
+        'masyarakat_id',
     ];
 
-    public function pertanyaan ()
+    public function masyarakat()
     {
-        return $this->belongsTo('pertanyaan_id', Pertanyaan::class);
+        return $this->belongsTo(Masyarakat::class, 'masyarakat_id');
     }
 
-    public function masyarakat ()
+    public function response()
     {
-        return $this->belongsTo('anak_id', Pertanyaan::class);
+        return $this->hasOne(Response::class);
     }
 }

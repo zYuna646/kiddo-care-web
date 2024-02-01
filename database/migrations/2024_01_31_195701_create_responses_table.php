@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('log_books', function (Blueprint $table) {
+        Schema::create('responses', function (Blueprint $table) {
             $table->id();
             $table->string('isi');
-            $table->string('status');
-            $table->string('video');
-            $table->foreignId('anak_id')->references('id')->on('anaks')->onDelete('cascade');
-
-            $table->string('comment');
+            $table->foreignId('masyarakat_id')->references('id')->on('masyarakats')->onDelete('cascade');
+            $table->foreignId('chat_id')->references('id')->on('chats')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('log_books');
+        Schema::dropIfExists('responses');
     }
 };

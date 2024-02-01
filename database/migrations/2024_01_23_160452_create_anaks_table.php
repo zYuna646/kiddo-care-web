@@ -19,6 +19,9 @@ return new class extends Migration
             $table->date('tanggal_lahir')->nullable(false);
             $table->string('berat')->nullable(false);
             $table->string('tinggi')->nullable(false);
+            $table->string('anak_ke')->nullable(false);
+            $table->boolean('isBantuan')->default(false);
+            $table->boolean('status')->default(false);
             $table->boolean('isMenyusui')->default(false);
             $table->boolean('isBuku')->default(false);
 

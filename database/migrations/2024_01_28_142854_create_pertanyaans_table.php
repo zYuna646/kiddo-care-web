@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('pertanyaans', function (Blueprint $table) {
             $table->id();
             $table->string('pertanyaan')->nullable(false);
+            $table->integer('min')->nullable(false);
+            $table->integer('max')->nullable(false);
             $table->timestamps();
         });
     }

@@ -18,12 +18,15 @@ class Anak extends Model
     protected $fillable = [
         'name',
         'nik',
+        'anak_ke',
         'jenis_kelamin',
         'tanggal_lahir',
         'berat',
         'tinggi',
         'isMenyusui',
         'isBuku',
+        'isBantuan',
+        'status',
         'masyarakat_id',
         'puskesmas_id',
     ];
@@ -37,4 +40,10 @@ class Anak extends Model
     {
         return $this->belongsTo(Puskesmas::class,'puskesmas_id');
     }
+
+    public function jawaban()
+    {
+        return $this->hasMany(Jawaban::class);
+    }
+
 }

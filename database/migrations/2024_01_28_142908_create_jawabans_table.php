@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('jawabans', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('jawaban')->nullable(false);
+            $table->foreignId('anak_id')->references('id')->on('anaks')->onDelete('cascade');
             $table->foreignId('pertanyaan_id')->references('id')->on('pertanyaans')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AddAnakRequest extends FormRequest
+class addAnakStatus extends FormRequest
 {
    /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,9 @@ class AddAnakRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:100'],
-            'nik' => ['required', 'max:100'],
-            'anak_ke' => ['required', 'max:100'],
-            'jenis_kelamin' => ['required', 'max:100'],
-            'tanggal_lahir' => ['required', 'date_format:Y-m-d'],
-            'berat' => ['required', 'max:100'],
-            'tinggi' => ['required', 'max:100'],
-            'isMenyusui' => ['required', 'boolean'],
-            'isBuku' => ['required', 'boolean'],
-            'masyarakat_id' => ['required', 'max:100'],
-            'puskesmas_id' => ['required', 'max:100'],
+            'status' => ['required', 'max:100'],
+            'hasil' => ['required', 'max:100'],
+            'anak_id' => ['required', 'max:100'],
         ];
     }
 

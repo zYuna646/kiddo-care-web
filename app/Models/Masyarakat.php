@@ -37,4 +37,16 @@ class Masyarakat extends Model
     {
         return $this->belongsTo(Puskesmas::class, 'puskesmas_id');
     }
+
+    public function chat()
+    {
+        return $this->hasMany(Chat::class);
+    }
+
+    public function response()
+    {
+        return $this->hasMany(Response::class);
+    }
+
+   
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->string('status')->nullable(false);
+            $table->string('hasil')->nullable(true);
             $table->foreignId('anak_id')->references('id')->on('anaks')->onDelete('cascade');
             $table->timestamps();
         });
