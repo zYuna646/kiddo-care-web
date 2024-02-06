@@ -120,6 +120,16 @@ class PuskesmasController extends Controller
         $anak = Anak::find($data['anak_id']);
         $anak->isBantuan = $data['status'];
         $anak->save();
+
+        LogBook::create([
+            'isi' => '1',
+            'status' => '1',
+            'video' => '1',
+            'comment' => '1',
+            'status' => 'proses',
+            'anak_id' => $anak->id
+        ]);
+
         return response()->json([
             'data' => true
         ], 201);
