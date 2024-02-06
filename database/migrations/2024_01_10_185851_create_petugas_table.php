@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('petugas', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_kelamin', 100);
+            $table->string('nkk', 100);
+            $table->string('nik', 100);
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->unsignedBigInteger('puskesmas_id')->nullable(false);
             $table->timestamps();

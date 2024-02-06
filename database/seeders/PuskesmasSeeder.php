@@ -43,6 +43,9 @@ class PuskesmasSeeder extends Seeder
 
         Petugas::create([
             'user_id' => $petugas->id,
+            'jenis_kelamin' => 'Laki-Laki',
+            'nik' => '1023092093',
+            'nkk' => '1921982183',
             'puskesmas_id' => $sejahtera->id,
         ]);
 

@@ -21,13 +21,4 @@ class Jawaban extends Model
         'anak_id'
     ];
 
-    public function pertanyaan ()
-    {
-        return $this->belongsTo('pertanyaan_id', Pertanyaan::class);
-    }
-
-    public function masyarakat ()
-    {
-        return $this->belongsTo('anak_id', Pertanyaan::class);
-    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Anak;
 use App\Http\Controllers\ArtikelWebController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CategoryController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\FrontPageController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\MainSliderController;
+use App\Http\Controllers\Masyarakat;
+use App\Http\Controllers\Petugas;
 use App\Http\Controllers\PuskesmasWebController;
 use App\Http\Controllers\ReviewSliderController;
 use App\Http\Controllers\VideoController;
@@ -40,8 +43,9 @@ Route::middleware(CheckLoggedIn::class)->group(function () {
     Route::get('/artikel', [DashboardController::class, 'Artikel'])->name('Artikel');
     Route::get('/puskesmas', [DashboardController::class,'Puskesmas'])->name('Puskesmas');
     Route::get('/admin-puskesmas', [DashboardController::class,'Admin'])->name('Admin');
-
-
+    Route::get('/masyarakat', [DashboardController::class,'Masyarakat'])->name('Masyarakat');
+    Route::get('/petugas', [DashboardController::class,'Petugas'])->name('Petugas');
+    Route::get('/anak', [DashboardController::class,'Anak'])->name('Anak');
 
     Route::get('/kategori-artikel/add', [ArtikelWebController::class, 'create'])->name('admin.KategoriArtikel.create');
     Route::post('/kategori-artikel/store', [ArtikelWebController::class, 'store'])->name('admin.KategoriArtikel.store');
@@ -69,6 +73,26 @@ Route::middleware(CheckLoggedIn::class)->group(function () {
     Route::get('/puskesmas/{id}/edit', [PuskesmasWebController::class, 'edit'])->name('admin.puskesmas.edit');
     Route::put('/puskesmas/{id}/update', [PuskesmasWebController::class, 'update'])->name('admin.puskesmas.update');
     Route::delete('/puskesmas/{id}/delete', [PuskesmasWebController::class, 'destroy'])->name('admin.puskesmas.delete');
+
+
+
+    Route::get('/masyarakat/add', [Masyarakat::class, 'create'])->name('admin.masyarakat.create');
+    Route::post('/masyarakat/store', [Masyarakat::class, 'store'])->name('admin.masyarakat.store');
+    Route::get('/masyarakat/{id}/edit', [Masyarakat::class, 'edit'])->name('admin.masyarakat.edit');
+    Route::put('/masyarakat/{id}/update', [Masyarakat::class, 'update'])->name('admin.masyarakat.update');
+    Route::delete('/masyarakat/{id}/delete', [Masyarakat::class, 'destroy'])->name('admin.masyarakat.delete');
+
+    Route::get('/anak/add', [Anak::class, 'create'])->name('admin.anak.create');
+    Route::post('/anak/store', [Anak::class, 'store'])->name('admin.anak.store');
+    Route::get('/anak/{id}/edit', [Anak::class, 'edit'])->name('admin.anak.edit');
+    Route::put('/anak/{id}/update', [Anak::class, 'update'])->name('admin.anak.update');
+    Route::delete('/anak/{id}/delete', [Anak::class, 'destroy'])->name('admin.anak.delete');
+
+    Route::get('/petugas/add', [Petugas::class, 'create'])->name('admin.petugas.create');
+    Route::post('/petugas/store', [Petugas::class, 'store'])->name('admin.petugas.store');
+    Route::get('/petugas/{id}/edit', [Petugas::class, 'edit'])->name('admin.petugas.edit');
+    Route::put('/petugas/{id}/update', [Petugas::class, 'update'])->name('admin.petugas.update');
+    Route::delete('/petugas/{id}/delete', [Petugas::class, 'destroy'])->name('admin.petugas.delete');
 });
 
 

@@ -40,17 +40,28 @@ Route::middleware(APIAuth::class)->group(function () {
     Route::post('/users/id', [UserController::class, 'id']);
     Route::get('/users/all', [UserController::class, 'all']);
 
+    Route::get('/chat', [UserController::class, 'chat']);
+    Route::get('/response', [UserController::class, 'response']);
+
     Route::post('/puskesmas/masyarakat', [PuskesmasController::class, 'getMasyarakat']);
     Route::post('/puskesmas/anak', [PuskesmasController::class, 'getPuskesmasAnak']);
     Route::post('/masyarakat/anak', [PuskesmasController::class, 'getAnak']);
     Route::post('/anak', [PuskesmasController::class, 'add']);
     Route::post('/pertanyaan', [PuskesmasController::class, 'pertanyaan']);
     Route::post('/jawaban/add', [PuskesmasController::class, 'addjawaban']);
-    Route::post('/anak/hasil/jawaban', [PuskesmasController::class,'hasiljawaban']);
+    Route::post('/anak/jawaban', [PuskesmasController::class,'hasiljawaban']);
     Route::post('/anak/hasil/status', [PuskesmasController::class,'hasilstatus']);
     Route::post('/anak/perbarui', [PuskesmasController::class, 'perbarui']);
+    Route::post('/anak/pemantauan', [PuskesmasController::class, 'pemantauan']);
     Route::post('/anak/klasifikasi', [PuskesmasController::class, 'klasifikasi']);
     Route::post('/anak/status', [PuskesmasController::class, 'status']);
+    Route::post('/anak/log', [PuskesmasController::class, 'getLog']);
     Route::post('/anak/update/status', [PuskesmasController::class, 'updatestatus']);
+    Route::post('/anak/update/bantuan', [PuskesmasController::class, 'updatebantuan']);
+    Route::post('/anak/update/log', [PuskesmasController::class, 'pemantauan']);
+    Route::post('/anak/log/update', [PuskesmasController::class, 'updatelog']);
+    Route::post('/anak/delete', [PuskesmasController::class, 'delete']);
+
+
 
 });

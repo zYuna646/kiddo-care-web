@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminWeb;
-use App\Models\Puskesmas;
-use App\Models\User;
+use App\Models\Masyarakat;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class Anak extends Controller
 {
     public function create()
     {
-        return view('admin.master-data.admin.create', [
-            'title' => 'Admin Web',
-            'subtitle' => 'Tambah Admin Web',
-            'active' => 'User',
-            'puskesmas' => Puskesmas::all()
+        $admin = AdminWeb::where('user_id', auth()->user()->id)->first();
+        $masyarakat = Masyarakat::where('puskesmas_id', $admin->puskesmas_id)->get();
+        return view('admin.master-data.anak.create', [
+            'title' => 'Anak',
+            'subtitle' => 'Tambah Anak',
+            'active' => 'Anak',
+            'masyarakat' => $masyarakat
         ]);
 
 

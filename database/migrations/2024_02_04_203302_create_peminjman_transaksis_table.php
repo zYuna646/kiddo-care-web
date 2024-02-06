@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('log_books', function (Blueprint $table) {
+        Schema::create('peminjman_transaksis', function (Blueprint $table) {
             $table->id();
-            $table->string('isi')->nullable();
-            $table->string('status')->nullable();
-            $table->string('video')->nullable();
-            $table->foreignId('anak_id')->references('id')->on('anaks')->onDelete('cascade');
-
-            $table->string('comment')->nullable();
+            $table->foreignId('pertanyaan_id')->references('id')->on('pertanyaans')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('log_books');
+        Schema::dropIfExists('peminjman_transaksis');
     }
 };

@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddAnakRequest;
 use App\Http\Requests\addAnakStatus;
 use App\Http\Requests\addjawabanrequest;
+use App\Http\Requests\addLog;
 use App\Http\Requests\getHasil;
 use App\Http\Requests\getHasilJawaban;
 use App\Http\Requests\KlasifikasiAnakRequest;
 use App\Http\Requests\MasyarakatAnakRequest;
+use App\Http\Requests\PemantauanRequest;
 use App\Http\Requests\pertanyaaRequest;
 use App\Http\Requests\PetugasMasyarakatRequest;
 use App\Http\Requests\PuskesmasAllRequest;
 use App\Http\Requests\PuskesmasMasyarakatRequest;
 use App\Http\Requests\updateAnakStatus;
+use App\Http\Requests\updateLog;
 use App\Models\Anak;
 use App\Models\Jawaban;
+use App\Models\LogBook;
+use App\Models\PeminjmanTransaksi;
 use App\Models\Pertanyaan;
 use App\Models\Puskesmas;
 use App\Models\Status;
@@ -30,6 +35,28 @@ class PuskesmasController extends Controller
 
         return response()->json([
             'puskesmas' => $puskesmas
+        ], 201);
+    }
+
+    public function pemantauan(addLog $request): JsonResponse
+    {
+        // Validate request using PemantauanRequest
+        $data = $request->validated();
+        // Handle video file
+        $video = $request->file('video');
+        $video_name = $data['log_id'] . '.' . $video->getClientOriginalName();
+        $video->move(public_path('uploads/catalog/image'), $video_name);
+        $log = LogBook::find($data['log_id']);
+
+        $log->status = 'proses';
+        $log->isi = $data['description'];
+        $log->video = $video_name;
+        $log->save();
+
+        // Handle other form fields, such as 'description'
+
+        return response()->json([
+            'data' => true
         ], 201);
     }
     public function status(addAnakStatus $request): JsonResponse
@@ -53,6 +80,44 @@ class PuskesmasController extends Controller
 
         $anak = Anak::find($data['anak_id']);
         $anak->status = $data['status'];
+        $anak->save();
+        return response()->json([
+            'data' => true
+        ], 201);
+    }
+
+
+    public function delete(updateAnakStatus $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        $anak = Anak::find($data['anak_id']);
+        $anak->delete();
+        return response()->json([
+            'data' => true
+        ], 201);
+    }
+
+
+    public function updatelog(updateLog $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        $log = LogBook::find($data['log_id']);
+        $log->status = $data['status'];
+        $log->comment = $data['comment'];
+        $log->save();
+
+        return response()->json([
+            'data' => true
+        ], 201);
+    }
+
+    public function updatebantuan(updateAnakStatus $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        $anak = Anak::find($data['anak_id']);
         $anak->isBantuan = $data['status'];
         $anak->save();
         return response()->json([
@@ -70,8 +135,23 @@ class PuskesmasController extends Controller
             ->where('max', '>=', $data['usia'])
             ->get();
 
+        $hasil = Jawaban::orderBy('created_at', 'desc')->get();
+
+
         return response()->json([
-            'pertanyaan' => $pertanyaan
+            'pertanyaan' => $pertanyaan,
+            'jawaban' => $hasil
+        ], 201);
+    }
+
+    public function getLog(getHasilJawaban $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        // Fixing the where condition
+        $log = LogBook::all();
+        return response()->json([
+            'log' => $log
         ], 201);
     }
 
@@ -79,7 +159,7 @@ class PuskesmasController extends Controller
     {
         $data = $request->validated();
 
-        // Fixing the where condition
+
         Jawaban::create([
             'jawaban' => $data['jawaban'],
             'anak_id' => $data['anak_id'],
@@ -136,14 +216,12 @@ class PuskesmasController extends Controller
     {
         $data = $request->validated();
 
-        $hasil = Jawaban::where('anak_id', $data['anak_id'])
-                        ->where('pertanyaan_id', $data['pertanyaan_id'])
-                        ->latest('created_at')
-                        ->first();
+        $hasil = Jawaban::all();
 
         return response()->json([
-            'jawaban' => $hasil
+            'jawaban' => $hasil,
         ], 200);
+
     }
 
 

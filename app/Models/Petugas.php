@@ -20,16 +20,19 @@ class Petugas extends Model
     protected $fillable = [
         'user_id',
         'puskesmas_id',
+        'jenis_kelamin',
+        'nkk',
+        'nik'
     ];
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(Petugas::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function puskesmas(): BelongsTo
     {
-        return $this->belongsTo(Petugas::class, 'puskesmas_id', 'id');
+        return $this->belongsTo(Puskesmas::class, 'puskesmas_id');
     }
 
 

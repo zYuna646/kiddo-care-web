@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class getHasilJawaban extends FormRequest
+class PemantauanRequest extends FormRequest
 {
    /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,11 @@ class getHasilJawaban extends FormRequest
     public function rules(): array
     {
         return [
-            'anak_id' => ['required', 'max:100'],
+            'pemantauan_id' => 'required|string',
+            'video' => 'required|mimetypes:video/mp4|max:10240', // Assuming a max size of 10MB
+            'description' => 'required|string',
         ];
     }
-
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
         throw new HttpResponseException(response([

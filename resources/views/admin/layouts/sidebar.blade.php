@@ -32,45 +32,76 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Data Master</span>
                 </li>
+                @if (auth()->check()) {{-- Check if the user is authenticated --}}
+                @if (auth()->user()->role == 'admin')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link @if ($active == 'KategoriArtikel') active @endif"
+                            href="{{ route('KategoriArtikel') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-user"></i>
+                            </span>
+                            <span class="hide-menu">Kategori Artikel</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link @if ($active == 'Artikel') active @endif"
+                            href="{{ route('Artikel') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-user"></i>
+                            </span>
+                            <span class="hide-menu">Artikel</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link @if ($active == 'Puskesmas') active @endif"
+                            href="{{ route('Puskesmas') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-user"></i>
+                            </span>
+                            <span class="hide-menu">Puskesmas</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link @if ($active == 'Admin') active @endif"
+                            href="{{ route('Admin') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-user"></i>
+                            </span>
+                            <span class="hide-menu">Admin Puskesmas</span>
+                        </a>
+                    </li>
+                @else {{-- If the user is not an admin --}}
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'KategoriArtikel') active @endif"
-                        href="{{ route('KategoriArtikel') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-cards"></i>
-                        </span>
-                        <span class="hide-menu">Kategori Artikel</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'Artikel') active @endif"
-                        href="{{ route('Artikel') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-news"></i>
-                        </span>
-                        <span class="hide-menu">Artikel</span>
-                    </a>
-                </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link @if ($active == 'Masyarakat') active @endif"
+                            href="{{ route('Masyarakat') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-user"></i>
+                            </span>
+                            <span class="hide-menu">Masyarkat</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link @if ($active == 'Petugas') active @endif"
+                            href="{{ route('Petugas') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-user"></i>
+                            </span>
+                            <span class="hide-menu">Petugas</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link @if ($active == 'Anak') active @endif"
+                            href="{{ route('Anak') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-user"></i>
+                            </span>
+                            <span class="hide-menu">Anak</span>
+                        </a>
+                    </li>
+                @endif
+            @endif
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'Puskesmas') active @endif"
-                        href="{{ route('Puskesmas') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-news"></i>
-                        </span>
-                        <span class="hide-menu">Puskesmas</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'Admin') active @endif"
-                        href="{{ route('Admin') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-user"></i>
-                        </span>
-                        <span class="hide-menu">Admin Puskesmas</span>
-                    </a>
-                </li>
 
 
 

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminWeb;
+use App\Models\Anak;
 use App\Models\Artikel;
 use App\Models\KategoriArtikel;
+use App\Models\Masyarakat;
+use App\Models\Petugas;
 use App\Models\Puskesmas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +68,37 @@ class DashboardController extends Controller
             'subtitle' => '',
             'active' => 'Admin',
             'datas' => AdminWeb::all()
+        ]);
+    }
+
+    public function Masyarakat()
+    {
+        $admin = AdminWeb::where('user_id', auth()->user()->id)->first();
+        return view('admin.master-data.masyarakat.index', [
+            'title' => 'Masyarakat',
+            'subtitle' => '',
+            'active' => 'Masyarakat',
+            'datas' => Masyarakat::where('puskesmas_id', $admin->puskesmas_id)->get()
+        ]);
+    }
+    public function Petugas()
+    {
+        $admin = AdminWeb::where('user_id', auth()->user()->id)->first();
+        return view('admin.master-data.petugas.index', [
+            'title' => 'Petugas',
+            'subtitle' => '',
+            'active' => 'Petugas',
+            'datas' => Petugas::all()
+        ]);
+    }
+    public function Anak()
+    {
+        $admin = AdminWeb::where('user_id', auth()->user()->id)->first();
+        return view('admin.master-data.anak.index', [
+            'title' => 'Anak',
+            'subtitle' => '',
+            'active' => 'Anak',
+            'datas' => Anak::all()
         ]);
     }
 }

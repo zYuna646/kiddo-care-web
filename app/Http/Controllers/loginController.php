@@ -30,8 +30,9 @@ class loginController extends Controller
             return view('auth.login');
         }
 
+
         // Check user role
-        if (!($user->role == 'admin' || $user->role == 'puskesmas')) {
+        if (!($user->role == 'admin' || $user->role == 'Puskesmas')) {
             // Additional checks or actions for admin/puskesmas role if needed
             return view('auth.login');
         }

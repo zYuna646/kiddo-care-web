@@ -62,6 +62,9 @@ class UserController extends Controller
             $petugas = Petugas::create([
                 'puskesmas_id' => $data['puskesmas_id'],
                 'user_id' => $user->id,
+                'jenis_kelamin' => $data['jk'],
+                'nik' => $data['ktp'],
+                'nkk' => $data['kk'],
             ]);
         }
 

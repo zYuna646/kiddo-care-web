@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminWeb;
-use App\Models\Puskesmas;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class Petugas extends Controller
 {
     public function create()
     {
-        return view('admin.master-data.admin.create', [
+        return view('admin.master-data.petugas.create', [
             'title' => 'Admin Web',
             'subtitle' => 'Tambah Admin Web',
             'active' => 'User',
-            'puskesmas' => Puskesmas::all()
         ]);
 
 
@@ -28,7 +26,6 @@ class AdminController extends Controller
             $request,
             [
                 'name' => 'required',
-                'puskesmas' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'phone' => 'required|unique:users,phone',
                 'new_password' => 'required|string|min:6',
@@ -42,17 +39,22 @@ class AdminController extends Controller
             'username'=> $request->name,
             'email'=> $request->email,
             'phone'=> $request->phone,
-            'role' => 'Puskesmas',
+            'role' => 'petugas',
             'password' =>  Hash::make($request->new_password),
         ]);
 
-        AdminWeb::create([
+        $admin = AdminWeb::where('user_id', auth()->user()->id)->first();
+
+        \App\Models\Petugas::create([
             'user_id' => $user->id,
-            'puskesmas_id' => $request->puskesmas,
+            'puskesmas_id' => $admin->puskesmas_id,
+            'jenis_kelamin' =>  $request->jenis_kelamin,
+            'nkk'=> $request->nkk,
+            'nik'=> $request->nik,
         ]);
 
 
-        return redirect()->route('Admin')->with('Berhasil', 'Admin Web Berhasil Di Tambahkan');
 
+        return redirect()->route('Petugas')->with('Berhasil', 'Petugas Berhasil Di Tambahkan');
     }
 }
